@@ -1,40 +1,30 @@
 import React, {Component} from 'react'
 import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native'
 import {SearchBar} from 'react-native-elements'
+
+import {createStore, applyMiddleware} from 'redux'
 import axios from 'axios'
+import axiosMiddleware from 'redux-axios-middleware'
+import reducer from './reducer'
+import {Provider} from 'react-redux'
+import WeatherList from './WeatherList'
 
+const client = axios.create({
+  baseURL: 'https://samples.openweathermap.org/data/2.5',
+  responseType: 'json'
+});
 
-var server = axios.create({
-    baseURL: 'https://samples.openweathermap.org/data/2.5',
-    timeout: 1000
-})
+const store = createStore(reducer, applyMiddleware(axiosMiddleware(client)));
 
 export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {zipcode: ''}
-    this.data = {data: {}}
-    this.city = {city: ''}
-    this.error = {error: ''}
   }
 
-  findCities() {
-    server.get('/forecast?zip=94040,us&appid=b6907d289e10d714a6e88b30761fae22')
-      .then((response) => {
-        // this.setState({city:response.city.name})
-        console.log('response========')
-        var res = JSON.stringify(response)
-        console.log(res)
-        console.log(res.data)
-        this.setState({data:JSON.stringify(response).data.list})
-      })      
-      .catch((err) => {
-        console.log('error='+err)
-        this.setState({error:err.message})
-      })
-  }
   render() {
     return ( 
+      <Provider store={store}>
           <View style={styles.container}>
           <View style={styles.rowContainer}>
             <SearchBar lightTheme={true}
@@ -45,17 +35,17 @@ export default class App extends Component {
                        value={this.state.zipcode}
                        containerStyle={styles.searchContainerStyle}
             />
-            <TouchableOpacity  style={styles.button} onPress={this.findCities.bind(this)} >
+            <TouchableOpacity  style={styles.button} onPress={this.store.getWeather(12345).bind(this)} >
               <Text style={styles.textStyle}>Search</Text>
             </TouchableOpacity>
             </View>
-            <Text style={{fontSize:18}}>Error: {this.state.error}</Text>
-            <Text style={{fontSize:18}}>City: {this.state.city}</Text>
-            <FlatList
-              data={this.state.data}
+            
+            <WeatherList/>
+              {/* data={this.state.data}
               renderItem={({item}) => <Text>{item.weather[0].description}</Text>}
-            />
+            /> */}
             </View>
+          </Provider>
     )
   }
 }
