@@ -21,7 +21,7 @@ class WeatherList extends Component {
             {error && <Text style={{padding: 20, paddingTop: 40}}>{error}</Text>}
             {data.city && <Text style={{fontSize:18}}>City: {data.city.name}</Text>}
             <FlatList 
-                style= {{flex:1}}
+                style= {{marginBottom: 60,}}
                 data={data}
                 keyExtractor={(item, index) => item.dt.toString()}
                 renderItem={this.renderItem}
@@ -37,30 +37,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent:'center',
         alignItems: 'center',
+        
     },
     item: {
         padding: 20,
         borderBottomWidth: 1,
         borderBottomColor: '#ccc'
-    },rowContainer: {
-        flexDirection:"row", 
-        borderRadius:4,
-        justifyContent:"space-between",
-      },
-      searchContainerStyle: {
-        flexGrow:1,
-      },
-      textStyle: {
-        fontSize: 14,
-        fontWeight:"bold",
-      },
-      button: {
-        alignItems: 'center',
-        backgroundColor: '#E2E8ED',
-        padding: 10,
-        borderWidth:1,
-        paddingLeft:10,
-      }
+    },
+    
 });
 
 const mapStateToProps = state => {

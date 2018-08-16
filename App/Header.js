@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getWeather} from './client'
+import {getWeather} from '../Services/client'
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native'
 import {SearchBar} from 'react-native-elements'
 
@@ -46,7 +46,6 @@ const styles = StyleSheet.create ({
     button: {
       alignItems: 'center',
       backgroundColor: '#E2E8ED',
-      padding: 10,
       borderWidth:1,
       paddingLeft:10,
     }

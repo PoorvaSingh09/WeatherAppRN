@@ -1,8 +1,7 @@
 import axios from 'axios'
-import reducer from './reducer'
+import reducer, {GET_WEATHER} from '../Reducer/reducer'
 import {createStore, applyMiddleware} from 'redux'
 import axiosMiddleware from 'redux-axios-middleware'
-import {GET_WEATHER} from './reducer'
 
 export const APP_ID='b6907d289e10d714a6e88b30761fae22'
 

@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {View, StyleSheet} from 'react-native'
-import Header from './Header'
+import Header from './App/Header'
 import {Provider} from 'react-redux'
-import WeatherList from './WeatherList'
-import {store} from './client'
+import WeatherList from './App/WeatherList'
+import {store} from './Services/client'
 
 export default class App extends Component {
   
